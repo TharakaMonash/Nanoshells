@@ -1,0 +1,75 @@
+# Inner radius =7, Outer radius =15, No of electrons = 112.0  
+CalculationMode = gs
+FromScratch = yes
+
+Output = density + potential
+OutputFormat = axis_x + plane_z
+# GS
+MaximumIter = -1
+ConvEigenError = true
+
+# Saving memory
+SymmetriesCompute = no
+PartitionPrint = no
+MeshPartitionPackage = metis
+
+# Parameters
+R_out = 15
+R_in = 7
+x_in =0
+y_in =0
+z_in =0
+No_electrons =112.0
+V_diel = 0.0735
+    
+% vol
+'+' | vol_sphere | 0 | 0 | 0 | R_out
+'-' | vol_sphere | 1 | x_in | y_in | z_in | R_in
+%
+
+% Species
+"jlm" | species_jellium_charge_density | Volume | "vol" | valence | No_electrons
+"diel_v" | species_user_defined | potential_formula | "V_diel(1-step(r-R_in))"
+%
+
+% Coordinates
+"jlm" | 0 | 0 | 0
+"diel_v" | x_in | y_in | z_in
+%
+
+# Simulation sphere
+BoxShape = minimum
+Radius = 54
+Spacing = 0.5
+
+# Fermi Dirac smearing
+SmearingFunction = 2
+Smearing = 0.001
+
+## Absorption spectra calculation (Uncomment the below block and set the calculation mode to td)
+#TDTimeStep = 0.1
+#TDMaxSteps = 1000000  # ~ 10.0/TDTimeStep
+#OutputInterval=5
+#
+#TDDeltaStrength = 0.01
+#TDPolarizationDirection = 1
+#TDOutput = laser + multipoles 
+
+## Dynamics of the system at each resonance (Uncomment the below block and set the calculation mode to td)
+#TDTimeStep = 0.1
+#TDMaxSteps = 1000000  # ~ 10.0/TDTimeStep
+#OutputInterval=5
+#
+#omega = 0.1257
+#%TDExternalFields
+#  electric_field | 1 | 0 | 0 | omega | "const"
+#%
+#
+#%TDFunctions
+#  "const" | tdf_cw | 0.00001 
+#%
+#
+#TDOutput = laser + multipoles + td_occup
+#TDOutputComputeInterval =50
+#ExperimentalFeatures = yes
+
