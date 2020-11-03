@@ -3,7 +3,7 @@ CalculationMode = gs
 FromScratch = yes
 
 Output = density + potential
-OutputFormat = axis_x + plane_z
+OutputFormat = axis_x + plane_z + cube
 # GS
 MaximumIter = -1
 ConvEigenError = true
@@ -45,6 +45,7 @@ Spacing = 0.5
 # Fermi Dirac smearing
 SmearingFunction = 2
 Smearing = 0.001
+ExtraStates = 100
 
 ## Absorption spectra calculation (Uncomment the below block and set the calculation mode to td)
 #TDTimeStep = 0.1
@@ -54,7 +55,11 @@ Smearing = 0.001
 #TDDeltaStrength = 0.01
 #TDPolarizationDirection = 1
 #TDOutput = laser + multipoles 
-
+#
+#Absorbing boundaries
+#AbsorbingBoundaries = cap
+#ABwidth = 10
+#
 ## Dynamics of the system at each resonance (Uncomment the below block and set the calculation mode to td)
 #TDTimeStep = 0.1
 #TDMaxSteps = 1000000  # ~ 10.0/TDTimeStep
