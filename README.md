@@ -1,6 +1,8 @@
 # Nanoshells
 Plasmonic Properties of Metallic Nanoshells in Quantum Limit: From Single Particle Excitations to Plasmons
 
+This project presents the codes used for analyzing the optical characteristics of nanoshells in the quantum limit.
+
 Steps to run:
 
 1) Update the octopus input file with the system parameters.
